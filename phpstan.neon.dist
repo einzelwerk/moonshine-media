@@ -1,0 +1,17 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: max
+    paths:
+        - src
+    tmpDir: .phpstan-cache
+    treatPhpDocTypesAsCertain: true
+    checkUninitializedProperties: true
+    reportUnmatchedIgnoredErrors: true
+    ignoreErrors:
+        # The trait is for models of the installation — a tour, an event, a
+        # venue, an artist — and the package ships no model that owns
+        # pictures, so nothing in `src` uses it.
+        - identifier: trait.unused
+          path: src/Concerns/HasMediaAttachments.php

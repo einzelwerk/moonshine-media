@@ -1,0 +1,13 @@
+/vendor
+composer.lock
+.phpunit.cache/
+.phpunit.result.cache
+.phpstan-cache/
+.php-cs-fixer.cache
+auth.json
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+.claude/settings.local.json

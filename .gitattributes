@@ -1,0 +1,33 @@
+# Normalize line endings
+* text=auto eol=lf
+
+# Binary fixtures of the test suite must never be touched by eol conversion
+*.gif  binary
+*.jpg  binary
+*.png  binary
+*.pdf  binary
+*.mp3  binary
+*.doc  binary
+
+# Keep distributed packages lean: exclude everything not needed at runtime
+# from `composer require` dist archives (these stay in the git repo).
+
+# Tests & QA
+/tests                  export-ignore
+/phpunit.xml.dist       export-ignore
+/.phpunit.cache         export-ignore
+/phpstan.neon.dist      export-ignore
+/.phpstan-cache         export-ignore
+/rector.php             export-ignore
+/.php-cs-fixer.dist.php export-ignore
+/.php-cs-fixer.cache    export-ignore
+
+# Documentation & project meta
+/docs                   export-ignore
+/.github                export-ignore
+/CHANGELOG.md           export-ignore
+
+# Editor tooling
+/.idea                  export-ignore
+/.gitattributes         export-ignore
+/.gitignore             export-ignore

@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: PHP 8.4
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # The real frame of a video is cut by `ffmpeg` and `ffprobe`; without
+      # them that one test is skipped and the rest run with a fake.
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: dom, exif, fileinfo, gd, intl, libxml, mbstring, pdo_sqlite, sqlite3, xml, zip
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Coding style
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff --allow-risky=yes
+
+      - name: Static analysis
+        run: vendor/bin/phpstan analyse --memory-limit=-1 --no-progress
+
+      - name: Tests
+        run: vendor/bin/pest
